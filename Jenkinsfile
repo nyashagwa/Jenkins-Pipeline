@@ -15,7 +15,7 @@ pipeline {
             success{
                 mail to: "ngwaradzimba@deakin.edu.au",
                 subject: "Build Status Email",
-                body: "Build was successful"
+                body: "Build was successful - no errors detected"
             }
             failure{
                 echo "pipleline execution failed"
