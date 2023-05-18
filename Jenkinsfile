@@ -15,7 +15,7 @@ pipeline {
                 echo "Using Maven build tool to compile and package code"
                 echo "Fetch the source code from, $DIRECTORY_PATH"
                 echo "Maven compiling code...."
-                sh 'mvn -Dmaven.test.failure.ignore=true install'
+                sh '/Users/jenipherg/IdeaProjects/ mvn -Dmaven.test.failure.ignore=true install'
                 echo "Maven packaging code...."
             }
             post {
