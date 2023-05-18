@@ -5,7 +5,7 @@ pipeline {
        jdk 'JDK' 
     }
     environment {
-        DIRECTORY_PATH= '/Users/jenipherg/NYASHA PROGRAMS/Code'
+        DIRECTORY_PATH= '/Users/jenipherg/IdeaProjects/'
         STAGING_ENVIRONMENT= '@AWS_STAGING_INSTANCE'
         PRODUCTION_ENVIRONMENT= '@AWS_PROD_INSTANCE'
     }
@@ -15,7 +15,7 @@ pipeline {
                 echo "Using Maven build tool to compile and package code"
                 echo "Fetch the source code from, $DIRECTORY_PATH"
                 echo "Maven compiling code...."
-                sh '/Users/jenipherg/IdeaProjects/ mvn -Dmaven.test.failure.ignore=true install'
+                sh 'mvn -Dmaven.test.failure.ignore=true install'
                 echo "Maven packaging code...."
             }
             post {
