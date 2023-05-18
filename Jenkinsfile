@@ -39,7 +39,6 @@ pipeline {
                 echo "Unit and Integration Tests failed"
             }
         }
-        }
         stage('Code Analysis') {
             steps{
                 echo "check the quality of the code"
