@@ -2,41 +2,70 @@ pipeline {
     agent any
     environment {
         DIRECTORY_PATH= '/Users/jenipherg/NYASHA PROGRAMS/Code'
-        TESTING_ENVIRONMENT= 'NYASHA PRE-PROD TEST'
-        PRODUCTION_ENVIRONMENT= 'Nyasha Gwaradzimba'
+        STAGING_ENVIRONMENT= '@AWS_STAGING_INSTANCE'
+        PRODUCTION_ENVIRONMENT= '@AWS_PROD_INSTANCE'
     }
     stages {
         stage('Build') {
             steps{
-                echo "fetch the source code from, $DIRECTORY_PATH"
-                echo "compile the code and generate any necessary artifacts"
+                echo "Using Maven build tool to compile and package code"
+                echo "Fetch the source code from, $DIRECTORY_PATH"
+                echo "Maven compiling code...."
+                echo "Maven packaging code...."
+            }
+            post {
+                always {
+                   junit(
+                     allowEmptyResults: true,
+                     testResults: '*/test-reports/.xml'
+                 )
+               }
+            } 
+        }
+        stage('Unit and Integration Tests') {
+            steps{
+                echo "Run unit tests using JUnit test automation tool "
+                echo "JUnit executing unit tests...."
+                echo "Executing integration tests using Katalon"
+                echo "Katalon executing integration tests.... "
             }
             post{
             success{
                 mail to: "ngwaradzimba@deakin.edu.au",
-                subject: "Build Status Email",
-                body: "Build was successful - no errors detected"
+                subject: "Unit and Integration Tests Status Email",
+                body: "Unit and Integration tests using Junit and Katalon respectively were successful "
             }
             failure{
-                echo "pipleline execution failed"
+                echo "Unit and Integration Tests failed"
             }
         }
         }
-        stage('Test') {
-            steps{
-                echo "unit tests"
-                echo "integration tests"
-            }
-        }
-        stage('Code Quality Check') {
+        stage('Code Analysis') {
             steps{
                 echo "check the quality of the code"
+                withSonarQubeEnv(installationName: 'SonarCubeScanner', credentialsId: 'SonarQubeToken') {
+                sh 'mvn clean package sonar:sonar'
             }      
         }
-        stage('Deploy') {
+        stage('Security Scan') {
+            steps{
+                echo "Performing security scan"
+            }
+            post{
+            success{
+                mail to: "ngwaradzimba@deakin.edu.au",
+                subject: "Security Scan Status Email",
+                body: "Security scan was successful"
+            }
+            failure{
+                echo "Security scan failed"
+            }
+        }
+        }
+        stage('Deploy to Staging') {
             steps{
                 retry(2) {
-                    echo "deploy the application to, $TESTING_ENVIRONMENT"
+                    echo "deploy the application to, $STAGING_ENVIRONMENT"
                 }
                 //timeout(time: 3, unit: 'SECONDS') {
                 //    sleep 5
