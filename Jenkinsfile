@@ -39,12 +39,14 @@ pipeline {
                 echo "Unit and Integration Tests failed"
             }
         }
+        }
         stage('Code Analysis') {
             steps{
                 echo "check the quality of the code"
                 withSonarQubeEnv(installationName: 'SonarCubeScanner', credentialsId: 'SonarQubeToken') {
                 sh 'mvn clean package sonar:sonar'
             }      
+        }
         }
         stage('Security Scan') {
             steps{
@@ -80,20 +82,6 @@ pipeline {
         stage('Deploy to Production') {
             steps{
                 echo "deploy code to, PRODUCTION_ENVIRONMENT "
-            }
-        }
-        
-    }
-        }
-    post{
-            always{
-                echo "======always======="
-            }
-            success{
-                echo "pipeline executed successfully"
-            }
-            failure{
-                echo "pipleline execution failed"
             }
         }
     }
