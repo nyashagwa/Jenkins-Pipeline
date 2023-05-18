@@ -96,4 +96,4 @@ pipeline {
                 echo "pipleline execution failed"
             }
         }
-}
+    } }
