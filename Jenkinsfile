@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools { 
+        maven 'Maven 3.9.2' 
+        jdk 'jdk17' 
+    }
     environment {
         DIRECTORY_PATH= '/Users/jenipherg/NYASHA PROGRAMS/Code'
         STAGING_ENVIRONMENT= '@AWS_STAGING_INSTANCE'
