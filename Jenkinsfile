@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools { 
-        MAVEN = 'Maven 3.9.2' 
-        JDK = 'jdk17' 
+        MAVEN 
+        JDK 
     }
     environment {
         DIRECTORY_PATH= '/Users/jenipherg/NYASHA PROGRAMS/Code'
