@@ -49,7 +49,7 @@ pipeline {
             steps{
                 echo "check the quality of the code"
                 withSonarQubeEnv(installationName: 'SonarCubeScanner', credentialsId: 'SonarQubeToken') {
-                sh 'mvn clean package sonar:sonar'
+                sh 'mvn clean sonar:sonar'
             }      
         }
         }
