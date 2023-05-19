@@ -33,7 +33,7 @@ pipeline {
             steps{
                 echo "Run unit tests using JUnit test automation tool "
                 echo "JUnit executing unit tests...."
-                echo "Dependencies"
+                echo "Check Dependencies"
                 sh 'npm i'
                 echo "Executing integration tests using Cypress"
                 sh 'npm run cypress:ci'
