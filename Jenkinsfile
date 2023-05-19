@@ -3,11 +3,13 @@ pipeline {
     tools { 
        maven 'MAVEN' 
        jdk 'JDK' 
+       nodejs 'Node10'
     }
     environment {
         DIRECTORY_PATH= '/Users/jenipherg/IdeaProjects/'
         STAGING_ENVIRONMENT= '@AWS_STAGING_INSTANCE'
         PRODUCTION_ENVIRONMENT= '@AWS_PROD_INSTANCE'
+        CHROME_BIN = '/bin/google-chrome'
     }
     stages {
         stage('Build') {
@@ -31,7 +33,10 @@ pipeline {
             steps{
                 echo "Run unit tests using JUnit test automation tool "
                 echo "JUnit executing unit tests...."
-                echo "Executing integration tests using Katalon"
+                echo "Dependencies"
+                sh 'npm i'
+                echo "Executing integration tests using Cypress"
+                sh 'npm run cypress:ci'
                 echo "Katalon executing integration tests.... "
             }
             post{
