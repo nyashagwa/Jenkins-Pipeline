@@ -15,7 +15,7 @@ pipeline {
                 echo "Using Maven build tool to compile and package code"
                 echo "Fetch the source code from, $DIRECTORY_PATH"
                 echo "Maven compiling code...."
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -B -DskipTests clean'
                 echo "Maven packaging code...."
             }
             post {
