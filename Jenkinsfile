@@ -47,7 +47,7 @@ pipeline {
         }
         stage('Code Analysis') {
             steps{
-                echo "check the quality of the code"
+                echo "check the quality of the code using Sonar Cube Scanner"
                 withSonarQubeEnv(installationName: 'SonarCubeScanner', credentialsId: 'SonarQubeToken') {
                 sh 'mvn sonar:sonar'
             }      
@@ -55,13 +55,15 @@ pipeline {
         }
         stage('Security Scan') {
             steps{
-                echo "Performing security scan"
+                echo "Performing security scan using Probely, Jfrog Xray or Veracode"
+                echo "Security scanning with Veracode"
+                probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probely-test-site'
             }
             post{
             success{
                 mail to: "ngwaradzimba@deakin.edu.au",
                 subject: "Security Scan Status Email",
-                body: "Security scan was successful"
+                body: "Security scan using Veracode was successful"
             }
             failure{
                 echo "Security scan failed"
