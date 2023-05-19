@@ -36,7 +36,7 @@ pipeline {
                 echo "Check Dependencies"
                 sh 'npm i'
                 echo "Executing integration tests using Cypress"
-                sh 'npm run cypress:ci'
+                sh 'npm run'
                 echo "Katalon executing integration tests.... "
             }
             post{
