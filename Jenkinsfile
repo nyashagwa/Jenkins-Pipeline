@@ -37,8 +37,8 @@ pipeline {
                 sh 'npm ci'
                 echo "Executing integration tests using Cypress"
                 echo "Cypress executing integration tests.... "
-                //sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')
-                sh "npx /Users/jenipherg/NYASHA/node_modules/.bin/cypress run --record --key 6cc3e632-c6c1-4685-a0fa-79754b86df04"
+                sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')
+                //sh "npx /Users/jenipherg/NYASHA/node_modules/.bin/cypress run --record --key 6cc3e632-c6c1-4685-a0fa-79754b86df04"
             }
             post{
             always{
