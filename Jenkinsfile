@@ -66,15 +66,18 @@ pipeline {
         }
         stage('Security Scan') {
             steps{
-                echo "Performing security scan using Probely, Jfrog Xray or Veracode"
-                echo "Security scanning with Veracode"
-                probelyScan targetId: 'NyashaTest', credentialsId: 'probely-test-site'
+                echo "Performing security scan using Synk, Probely, Jfrog Xray or Veracode"
+                echo "Security scanning with Synk"
+                //probelyScan targetId: 'NyashaTest', credentialsId: 'probely-test-site'
+                snykSecurity(
+                    snykInstallation: 'Synk-Security-Scanning',
+                    snykTokenId: 'organisation-snyk-api-token',
             }
             post{
             success{
                 mail to: "ngwaradzimba@deakin.edu.au",
                 subject: "Security Scan Status Email",
-                body: "Security scan using Veracode was successful"
+                body: "Security scan using Synk was successful"
             }
             failure{
                 echo "Security scan failed"
