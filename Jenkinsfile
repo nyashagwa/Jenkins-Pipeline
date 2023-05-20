@@ -35,6 +35,7 @@ pipeline {
                 echo "JUnit executing unit tests...."
                 echo "Check Dependencies"
                 sh 'npm ci'
+                sh 'npm i -D cypress'
                 echo "Executing integration tests using Cypress"
                 echo "Cypress executing integration tests.... "
                 sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')
