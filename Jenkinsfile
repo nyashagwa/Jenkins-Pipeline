@@ -68,7 +68,7 @@ pipeline {
             steps{
                 echo "Performing security scan using Probely, Jfrog Xray or Veracode"
                 echo "Security scanning with Veracode"
-                probelyScan targetId: '9nl6yy0TWWKv', credentialsId: 'probely-test-site'
+                probelyScan targetId: 'NyashaTest', credentialsId: 'probely-test-site'
             }
             post{
             success{
