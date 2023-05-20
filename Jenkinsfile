@@ -71,7 +71,7 @@ pipeline {
                 //probelyScan targetId: 'NyashaTest', credentialsId: 'probely-test-site'
                 snykSecurity(
                     snykInstallation: 'Synk-Security-Scanning',
-                    snykTokenId: 'organisation-snyk-api-token',
+                    snykTokenId: 'organisation-snyk-api-token')
             }
             post{
             success{
