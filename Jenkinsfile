@@ -10,6 +10,7 @@ pipeline {
         STAGING_ENVIRONMENT= '@AWS_STAGING_INSTANCE'
         PRODUCTION_ENVIRONMENT= '@AWS_PROD_INSTANCE'
         CHROME_BIN = '/bin/google-chrome'
+        CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
     }
     stages {
         stage('Build') {
@@ -36,8 +37,9 @@ pipeline {
                 echo "Check Dependencies"
                 sh 'npm i'
                 echo "Executing integration tests using Cypress"
-                sh 'npm run'
-                sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')  
+                // sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')  
+                sh 'npm ci'
+                sh "npm run test:ci:record"
                 echo "Cypress executing integration tests.... "
             }
             post{
