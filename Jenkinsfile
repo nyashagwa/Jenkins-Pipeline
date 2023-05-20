@@ -37,7 +37,7 @@ pipeline {
                 sh 'npm i'
                 echo "Executing integration tests using Cypress"
                 sh 'npm run'
-                sh (script: 'NO_COLOR=1 /Users/jenipherg/Nyasha/node_modules/.bin/cypress run || true')  
+                sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')  
                 echo "Cypress executing integration tests.... "
             }
             post{
