@@ -95,7 +95,8 @@ pipeline {
                     //sh 'aws configure set region us-east-1'
                     withAWS(region:'us-east-1',credentials:'AWS_Jenkins_Credentials')\
                     {
-                    sh 'aws s3 cp . s3://nyasha-staging-files/'
+                    //sh 'aws s3 cp . s3://nyasha-staging-files/'
+                    s3Upload(bucket: 'nyasha-staging-files')
                     }
                 }
                 //timeout(time: 3, unit: 'SECONDS') {
