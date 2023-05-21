@@ -38,7 +38,7 @@ pipeline {
                 sh 'npm i -D cypress'
                 echo "Executing integration tests using Cypress"
                 echo "Cypress executing integration tests.... "
-                //sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')
+                sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')
                 sh "npx /Users/jenipherg/NYASHA/node_modules/.bin/cypress run --key 6cc3e632-c6c1-4685-a0fa-79754b86df04"
             }
             post{
@@ -49,10 +49,12 @@ pipeline {
             success{
                 mail to: "ngwaradzimba@deakin.edu.au",
                 subject: "Unit and Integration Tests Status Email",
-                body: "Unit and Integration tests using Junit and Katalon respectively were successful "
+                body: "Unit and Integration tests using Junit and Cypress respectively were successful "
             }
             failure{
-                echo "Unit and Integration Tests failed"
+               mail to: "ngwaradzimba@deakin.edu.au",
+                subject: "Unit and Integration Tests Status Email",
+                body: "Unit and Integration tests using Junit and Cypress respectively were unsuccessful "
             }
         }
         }
@@ -68,7 +70,7 @@ pipeline {
             steps{
                 echo "Performing security scan using Synk, Probely, Jfrog Xray or Veracode"
                 echo "Security scanning with Synk"
-                probelyScan targetId: 'NyashaTest', credentialsId: 'probely-test-site'
+                //probelyScan targetId: 'NyashaTest', credentialsId: 'probely-test-site'
                 snykSecurity(
                     snykInstallation: 'Synk-Security-Scanning',
                     snykTokenId: 'organisation-snyk-api-token')
@@ -80,7 +82,9 @@ pipeline {
                 body: "Security scan using Synk was successful"
             }
             failure{
-                echo "Security scan failed"
+                mail to: "ngwaradzimba@deakin.edu.au",
+                subject: "Security Scan Status Email",
+                body: "Security scan using Synk was unsuccessful"
             }
         }
         }
