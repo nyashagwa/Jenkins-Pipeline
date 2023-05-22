@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: source
+    destination: /webapps/myApp
+hooks:
+  BeforeInstall:
+    - timeout: 20
+  AfterInstall:
+      timeout: 30
+  ApplicationStart:
+      timeout: 20
+  ValidateService:
+      timeout: 10
+      runas: codedeployuser
