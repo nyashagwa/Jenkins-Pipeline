@@ -102,6 +102,7 @@ pipeline {
                     echo "Deploying to EC2 staging instance"
                     createDeployment(applicationName: 'nyasha-deakin-unit-page', deploymentGroupName: 'CodedeployNyasha',
                                      s3Bucket: 'nyasha-staging-files', s3BundleType: 'zip', s3Key: 'Heloworld.zip' )
+                    echo "Deployment to Staging Complete"
                     }
                 }
                 //timeout(time: 3, unit: 'SECONDS') {
