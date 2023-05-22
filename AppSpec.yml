@@ -1,21 +1,15 @@
 version: 0.0
 os: linux
 files:
-  - source: Config/config.txt
-    destination: /webapps/Config
   - source: source
     destination: /webapps/myApp
 hooks:
   BeforeInstall:
-    - location: Scripts/UnzipResourceBundle.sh
-    - location: Scripts/UnzipDataBundle.sh
+    - timeout: 20
   AfterInstall:
-    - location: Scripts/RunResourceTests.sh
-      timeout: 180
+      timeout: 30
   ApplicationStart:
-    - location: Scripts/RunFunctionalTests.sh
-      timeout: 3600
+      timeout: 20
   ValidateService:
-    - location: Scripts/MonitorService.sh
-      timeout: 3600
+      timeout: 10
       runas: codedeployuser
