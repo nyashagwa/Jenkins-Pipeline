@@ -5,11 +5,11 @@ files:
     destination: /webapps/myApp
 hooks:
   BeforeInstall:
-    - timeout: 20
+    - timeout: 0.01
   AfterInstall:
-      timeout: 30
+      timeout: 0.01
   ApplicationStart:
-      timeout: 20
+      timeout: 0.01
   ValidateService:
-      timeout: 10
+      timeout: 0.01
       runas: codedeployuser
