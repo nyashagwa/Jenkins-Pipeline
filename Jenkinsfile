@@ -96,7 +96,12 @@ pipeline {
                     withAWS(region:'us-east-1',credentials:'AWS_Jenkins_Credentials')\
                     {
                     //sh 'aws s3 cp . s3://nyasha-staging-files/'
+                    echo " Now uploading files for deployment to S3 bucket, please wait ....."
                     s3Upload(file: 'Heloworld/.', bucket: 'nyasha-staging-files')
+                    echo "Files uploaded to S3 bucket"
+                    echo "Deploying to EC2 staging instance"
+                    createDeployment(applicationName: 'nyasha-deakin-unit-page',deploymentGroupName: 'CodedeployNyasha', 
+                                     s3Bucket: 'nyasha-staging-files')
                     }
                 }
                 //timeout(time: 3, unit: 'SECONDS') {
