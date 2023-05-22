@@ -100,7 +100,7 @@ pipeline {
                     s3Upload(file: 'Heloworld/.', bucket: 'nyasha-staging-files')
                     echo "Files uploaded to S3 bucket"
                     echo "Deploying to EC2 staging instance"
-                    createDeployment(applicationName: 'nyasha-deakin-unit-page',deploymentGroupName: 'CodedeployNyasha', 
+                    createDeployment(applicationName: 'nyasha-deakin-unit-page', 
                                      s3Bucket: 'nyasha-staging-files', s3BundleType: 'zip', s3Key: 'src/' )
                     }
                 }
