@@ -106,21 +106,54 @@ pipeline {
                     echo "Deployment to Staging Complete"
                     }
                 }
-                //timeout(time: 3, unit: 'SECONDS') {
-                //    sleep 5
-                //}
-                
             }
         }
-        stage('Approval') {
+        stage('Integration Tests on Staging') {
             steps{
-                sleep 10
+                echo "Run integration test on Staging using Cypress test automation tool "
+                echo "Check Dependencies"
+                sh 'npm ci'
+                sh 'npm i -D cypress'
+                echo "Cypress executing integration tests.... "
+                sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')
+                sh "npx /Users/jenipherg/NYASHA/node_modules/.bin/cypress run --key 6cc3e632-c6c1-4685-a0fa-79754b86df04"
             }
+            post{
+            always{
+                junit(testResults: 'cypress/results/results.xml', allowEmptyResults : true)
+                archiveArtifacts(artifacts: 'cypress/videos/spec.cy.js.mp4', fingerprint: true) 
+            }
+            success{
+                mail to: "ngwaradzimba@deakin.edu.au",
+                subject: "Integration Tests on Staging Status Email",
+                body: "Integration tests on Staging using Cypress were successful "
+            }
+            failure{
+               mail to: "ngwaradzimba@deakin.edu.au",
+                subject: "Integration Tests on Staging Status Email",
+                body: "Integration tests on Staging using Cypress were unsuccessful "
+            }
+        }
         }
         stage('Deploy to Production') {
             steps{
-                echo "deploy code to, PRODUCTION_ENVIRONMENT "
+                retry(2) {
+                    echo "deploy the application to, $PRODUCTION_ENVIRONMENT"
+                    //sh 'aws configure set region us-east-1'
+                    withAWS(region:'us-east-1',credentials:'AWS_Jenkins_Credentials')\
+                    {
+                    echo " Now uploading files for deployment to S3 bucket, please wait ....."
+                    s3Upload(file: 'nyasha-deakin-unit-page.zip/.', bucket: 'nyasha-prod-files')
+                    echo "Files uploaded to S3 bucket"
+                    echo "Deploying to EC2 Production instance"
+                    createDeployment(applicationName: 'nyasha-deakin-unit-page', deploymentGroupName: 'CodedeployNyasha',
+                                     s3Bucket: 'nyasha-prod-files', waitForCompletion: true, ignoreApplicationStopFailures: true,
+                                     s3BundleType: 'zip', s3Key: 'nyasha-deakin-unit-page.zip', fileExistsBehavior: 'OVERWRITE' )
+                    echo "Deployment to Production Complete"
+                    }
+                }
             }
         }
+
     }
 }
