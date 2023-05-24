@@ -48,11 +48,13 @@ pipeline {
             }
             success{
                 mail to: "ngwaradzimba@deakin.edu.au",
+                emailext attachLog: true,
                 subject: "Unit and Integration Tests Status Email",
                 body: "Unit and Integration tests using Junit and Cypress respectively were successful "
             }
             failure{
                mail to: "ngwaradzimba@deakin.edu.au",
+                emailext attachLog: true,
                 subject: "Unit and Integration Tests Status Email",
                 body: "Unit and Integration tests using Junit and Cypress respectively were unsuccessful "
             }
@@ -78,11 +80,13 @@ pipeline {
             post{
             success{
                 mail to: "ngwaradzimba@deakin.edu.au",
+                emailext attachLog: true,
                 subject: "Security Scan Status Email",
                 body: "Security scan using Synk was successful"
             }
             failure{
                 mail to: "ngwaradzimba@deakin.edu.au",
+                emailext attachLog: true,
                 subject: "Security Scan Status Email",
                 body: "Security scan using Synk was unsuccessful"
             }
