@@ -47,14 +47,13 @@ pipeline {
                 archiveArtifacts(artifacts: 'cypress/videos/spec.cy.js.mp4', fingerprint: true) 
             }
             success{
-                mail to: "ngwaradzimba@deakin.edu.au",
-                attachLog: true,
+                emailext to: "ngwaradzimba@deakin.edu.au",
                 subject: "Unit and Integration Tests Status Email",
-                body: "Unit and Integration tests using Junit and Cypress respectively were successful "
+                body: "Unit and Integration tests using Junit and Cypress respectively were successful ",
+                attachLog: true
             }
             failure{
                mail to: "ngwaradzimba@deakin.edu.au",
-                attachLog: true,
                 subject: "Unit and Integration Tests Status Email",
                 body: "Unit and Integration tests using Junit and Cypress respectively were unsuccessful "
             }
@@ -80,13 +79,11 @@ pipeline {
             post{
             success{
                 mail to: "ngwaradzimba@deakin.edu.au",
-                attachLog: true,
                 subject: "Security Scan Status Email",
                 body: "Security scan using Synk was successful"
             }
             failure{
                 mail to: "ngwaradzimba@deakin.edu.au",
-                attachLog: true,
                 subject: "Security Scan Status Email",
                 body: "Security scan using Synk was unsuccessful"
             }
