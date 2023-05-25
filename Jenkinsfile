@@ -53,9 +53,10 @@ pipeline {
                 attachLog: true
             }
             failure{
-               mail to: "ngwaradzimba@deakin.edu.au",
+               emailext to: "ngwaradzimba@deakin.edu.au",
                 subject: "Unit and Integration Tests Status Email",
                 body: "Unit and Integration tests using Junit and Cypress respectively were unsuccessful "
+                attachLog: true
             }
         }
         }
@@ -78,14 +79,16 @@ pipeline {
             }
             post{
             success{
-                mail to: "ngwaradzimba@deakin.edu.au",
+                emailext to: "ngwaradzimba@deakin.edu.au",
                 subject: "Security Scan Status Email",
                 body: "Security scan using Synk was successful"
+                attachLog: true
             }
             failure{
-                mail to: "ngwaradzimba@deakin.edu.au",
+                emailext to: "ngwaradzimba@deakin.edu.au",
                 subject: "Security Scan Status Email",
                 body: "Security scan using Synk was unsuccessful"
+                attachLog: true
             }
         }
         }
@@ -125,14 +128,16 @@ pipeline {
                 archiveArtifacts(artifacts: 'cypress/videos/spec.cy.js.mp4', fingerprint: true) 
             }
             success{
-                mail to: "ngwaradzimba@deakin.edu.au",
+                emailext to: "ngwaradzimba@deakin.edu.au",
                 subject: "Integration Tests on Staging Status Email",
                 body: "Integration tests on Staging using Cypress were successful "
+                attachLog: true
             }
             failure{
-               mail to: "ngwaradzimba@deakin.edu.au",
+               emailext to: "ngwaradzimba@deakin.edu.au",
                 subject: "Integration Tests on Staging Status Email",
                 body: "Integration tests on Staging using Cypress were unsuccessful "
+                attachLog: true
             }
         }
         }
