@@ -72,7 +72,6 @@ pipeline {
             steps{
                 echo "Performing security scan using Synk, Probely, Jfrog Xray or Veracode"
                 echo "Security scanning with Synk"
-                //probelyScan targetId: 'NyashaTest', credentialsId: 'probely-test-site'
                 snykSecurity(
                     snykInstallation: 'Synk-Security-Scanning',
                     snykTokenId: 'organisation-snyk-api-token')
