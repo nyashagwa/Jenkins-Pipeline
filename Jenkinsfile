@@ -35,11 +35,12 @@ pipeline {
                 echo "JUnit executing unit tests...."
                 echo "Check Dependencies"
                 sh 'npm ci'
-                sh 'npm i -D cypress'
+                //sh 'npm i -D cypress'
+                sh 'npm i -D cypress@latest'
                 echo "Executing integration tests using Cypress"
                 echo "Cypress executing integration tests.... "
-                sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')
-                //sh "npx /Users/jenipherg/NYASHA/node_modules/.bin/cypress run --key 6cc3e632-c6c1-4685-a0fa-79754b86df04"
+                //sh (script: 'NO_COLOR=1 /Users/jenipherg/NYASHA/node_modules/.bin/cypress run || true')
+                sh "npx /Users/jenipherg/NYASHA/node_modules/.bin/cypress run --key 6cc3e632-c6c1-4685-a0fa-79754b86df04"
             }
             post{
             always{
