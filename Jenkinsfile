@@ -44,7 +44,7 @@ pipeline {
             }
             post{
             always{
-                junit(testResults: 'cypress/results/results.xml', allowEmptyResults : true)
+                //junit(testResults: '**cypress/results/results.xml', allowEmptyResults : true)
                 archiveArtifacts(artifacts: 'cypress/videos/navigation.cy.js.mp4', fingerprint: true) 
             }
             success{
@@ -123,7 +123,6 @@ pipeline {
             }
             post{
             always{
-                junit(testResults: 'cypress/results/results.xml', allowEmptyResults : true)
                 archiveArtifacts(artifacts: 'cypress/videos/navigation.cy.js.mp4', fingerprint: true) 
             }
             success{
