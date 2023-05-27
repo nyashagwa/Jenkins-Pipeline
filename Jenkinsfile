@@ -19,6 +19,7 @@ pipeline {
                 echo "Maven compiling code...."
                 sh 'mvn -B -DskipTests clean'
                 echo "Maven packaging code...."
+                echo "Build finished completely"
             }
             post {
                 always {
